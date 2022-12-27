@@ -8,11 +8,20 @@ import { Link } from 'react-router-dom'
 export default function Navbar() {
     return (
         <div className='navbar'>
-                {/* <img src={logo} alt="logo" /> */}
+            {/* <img src={logo} alt="logo" /> */}
             <div className="nav-img">
-                <img src={logo} alt="logo" />
+                <Link to="/" className='linkHome' >
+                    <img src={logo} alt="logo" />
+                </Link>
             </div>
             <ul className='nav-menu'>
+                <Link to="/createPost">
+                    <li>
+                        <span class="material-symbols-sharp">
+                            add_box
+                        </span>
+                    </li>
+                </Link>
                 <Link to="/signup"><li>SignUp</li></Link>
                 <Link to="/signin"><li>SignIn</li></Link>
                 <Link to="/profile"><li>Profile</li></Link>

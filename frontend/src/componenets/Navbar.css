@@ -2,11 +2,20 @@
     width: 10%;
     object-fit: contain;
 } */
+.linkHome{
+    /* border: 3px solid red; */
+    height: fit-content;
+    width: fit-content;
+    
+}
 .nav-img {
-    display: flex;
+    /* display: inline; */
+    /* display: flex; */
     align-items: center;
 }
 .nav-img img {
+    /* width: 100%; */
+    /* height: 100%; */
     width: 50%;
     object-fit: contain;
     margin: auto;
@@ -37,6 +46,13 @@ li {
     font-size: 1.3rem;
 }
 
+@media only screen and (max-width: 1000px) {
+    .nav-img {
+        display: flex;
+    }
+
+
+}
 @media only screen and (max-width: 600px) {
     .nav-img{
         margin-left: 15px;
