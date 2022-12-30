@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     // console.log("Hello middleware");
     // next();
 
-    const { authorization } = req.headers
+    const { authorization } = req.headers;
     if (!authorization) {
         return res.status(401).json({ error: " You must have logged in 1" })
     }

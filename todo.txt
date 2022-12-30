@@ -1,3 +1,6 @@
 replace mongoURl with process dotencvnpm install dotenv
 
 add different eroor toast for different password errors
+
+first upload the image , by upload button(create a new btn) , then make the publish button clickable for fetch(localhist:5000/creatPost api to run)
+

@@ -17,7 +17,7 @@ export default function Navbar() {
             <ul className='nav-menu'>
                 <Link to="/createPost">
                     <li>
-                        <span class="material-symbols-sharp">
+                        <span className="material-symbols-sharp">
                             add_box
                         </span>
                     </li>

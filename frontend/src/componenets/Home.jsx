@@ -23,7 +23,7 @@ export default function Home() {
                 </div>
                 {/* card content */}
                 <div className="card-content">
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         favorite
                     </span>
                     <p>1 like</p>
@@ -31,7 +31,7 @@ export default function Home() {
                 </div>
                 {/* add Comment */}
                 <div className='add-comment'>
-                    <span class="material-symbols-outlined">
+                    <span className="material-symbols-outlined">
                         mood
                     </span>
                     <input type="text"placeholder='Add Comment' />

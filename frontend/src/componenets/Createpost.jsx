@@ -1,12 +1,83 @@
-import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import './CreatePost.css'
+import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 export default function Createpost() {
+    const navigate = useNavigate();
 
-    const loadfile = (event) =>{
+    const [caption, setCaption] = useState("");
+    const [image, setImage] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+
+    
+    // Toast Functions
+    const notifyA = (msg) => toast.error(msg);
+    const notifyB = (msg) => toast.success(msg);
+
+
+    useEffect(() => {
+
+        //saving post rto mongo
+        if (imageUrl) {
+            fetch("http://localhost:5000/createPost", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                },
+                body: JSON.stringify({
+                    caption,
+                    imageUrl
+                })
+            }).then(res => res.json())
+                .then(data => {
+                    // console.log(data.error)
+                    if(data.error){
+                        notifyA(data.error)
+                    }
+                    else{
+                        notifyB("Successfully Posted")
+                        navigate("/")
+                    }
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                    // notifyA(err)
+                })
+        }
+
+    }, [caption, navigate, imageUrl])
+
+
+    // Postin image to cloudinary
+    const postDetails = () => {
+        // console.log(body, image)
+        const data = new FormData()
+        data.append("file", image)
+        data.append("upload_preset", "instaclone1")
+        data.append("cloud_name", "smilingPanda2");
+        fetch("https://api.cloudinary.com/v1_1/smilingPanda2/image/upload",
+            {
+                method: "post",
+                body: data
+            }).then(res => res.json())
+            .then(data => {
+                setImageUrl(data.url)
+                // toast image uploaded successfully( green )
+            })
+            .catch(err => console.log(err))
+
+
+
+    }
+
+    const loadfile = (event) => {
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
-        output.onload = function(){
+        output.onload = function () {
             URL.revokeObjectURL(output.src) //free memory 
         }
     }
@@ -19,12 +90,25 @@ export default function Createpost() {
                 {/* Header  */}
                 <div className="post-header">
                     <h4>Create New Post</h4>
-                    <button id="post-btn">Publish</button>
+                    <button
+                        id="post-btn"
+                        onClick={() => {
+                            postDetails();
+                        }}>
+                        Publish
+                    </button>
                 </div>
                 {/* Image Preview  */}
                 <div className="main-div">
-                <img id="output" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" alt="default-icon" />
-                    <input type="file" accept="image/*" onChange={(event)=>{loadfile(event)}} />
+                    <img id="output" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png" alt="default-icon" />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(event) => {
+                            loadfile(event);
+                            setImage(event.target.files[0]);
+                        }}
+                    />
                 </div>
 
                 {/* Details  */}
@@ -35,7 +119,9 @@ export default function Createpost() {
                         </div>
                         <h5>Ramesh</h5>
                     </div>
-                    <textarea type="text" cols="30" rows="5" placeholder="Write a caption ..."></textarea>
+                    <textarea value={caption} onChange={(e) => {
+                        setCaption(e.target.value)
+                    }} type="text" cols="30" rows="5" placeholder="Write a caption ..."></textarea>
                 </div>
 
 

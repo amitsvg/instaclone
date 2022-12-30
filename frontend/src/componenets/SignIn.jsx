@@ -41,9 +41,11 @@ export default function SignIn() {
                     notifyA(data.error);
                 } else {
                     notifyB(data.message);
+                    console.log(data)
+                    localStorage.setItem("jwt",data)
                     navigate("/");
                 }
-                console.log((data))
+                console.log(data)
             })
     }
 
