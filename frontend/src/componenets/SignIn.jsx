@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import "./SignIn.css"
 import logo from "../img/logoinsta2.png"
 import { Link, useNavigate } from 'react-router-dom'
 
 import { toast } from 'react-toastify';
+import { LoginContext } from '../context/LoginContext';
 
 
 export default function SignIn() {
+    const {setUserLogin} = useContext(LoginContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,6 +17,7 @@ export default function SignIn() {
     const notifyA = (msg) => toast.error(msg);
     const notifyB = (msg) => toast.success(msg);
 
+    // eslint-disable-next-line
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
@@ -40,9 +43,11 @@ export default function SignIn() {
                 if (data.error) {
                     notifyA(data.error);
                 } else {
-                    notifyB(data.message);
+                    // notifyB(data.message);
+                    notifyB("Signed in Successfully");
                     console.log(data)
                     localStorage.setItem("jwt",data)
+                    setUserLogin(true);
                     navigate("/");
                 }
                 console.log(data)
