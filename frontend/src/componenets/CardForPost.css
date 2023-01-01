@@ -63,6 +63,36 @@
     align-items: center;
 }
 
+
+/* .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 00,
+  'wght' 700,
+  'GRAD' 200,
+  'opsz' 48
+} */
+
+.material-symbols-outlined {
+    cursor: pointer;
+    animation: all 22s ease;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 200,
+    'opsz' 48
+}
+.material-symbols-outlined:hover {
+    transform: scale(1.16);
+}
+
+  .liked{
+      color: red;
+      text-shadow: 1px 2px 12px red;
+      font-variation-settings:
+      'FILL' 1
+    
+}
+
 .add-comment input {
     margin: 0;
     outline: none;

@@ -1,7 +1,70 @@
 import React from "react";
-import './Home.css'
+import { useEffect } from "react";
+import { useState } from "react";
+import './CardForPost.css'
 
-export default function CardForPost({cardDetails}) {
+export default function CardForPost({ cardDetails, handleLike, handleUnlike }) {
+
+    // const likePost = (id) => {
+    //     fetch("http://localhost:5000/like", {
+    //         method: "put",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": "Bearer " + localStorage.getItem("jwt")
+    //         },
+    //         body: JSON.stringify({
+    //             postId: id
+    //         })
+    //     }).then(res => res.json()).then((result) => {
+    //         // const newData = data.map((cardDetails)=>{
+    //             // if(cardDetails._id == result._id){
+    //             //     return result 
+    //             // }
+    //             // else{
+    //             //     return cardDetails
+    //             // }
+    //         // })
+    //         setIsLiked(current => !current);
+    //         console.log(result)
+    //     })
+    // }
+
+    // const unlikePost = (id) => {
+    //     fetch("http://localhost:5000/unlike", {
+    //         method: "put",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": "Bearer " + localStorage.getItem("jwt")
+    //         },
+    //         body: JSON.stringify({
+    //             postId: id
+    //         })
+    //     }).then(res => res.json()).then((result) => {
+    //         // const newData = data.map((cardDetails)=>{
+    //             // if(cardDetails._id == result._id){
+    //             //     return result 
+    //             // }
+    //             // else{
+    //             //     return cardDetails
+    //             // }
+    //         // })
+    //         // setData(newData);
+    //         console.log(result)
+    //     })
+        
+    // }
+
+    // const handleLike = (idofpost) =>{
+    //     if(!isLiked){
+    //         likePost(idofpost);
+    //     }
+    //     else{
+    //         unlikePost(idofpost);
+    //     }
+    //     setIsLiked(current => !current);
+
+    // }
+
 
     return (
 
@@ -20,22 +83,45 @@ export default function CardForPost({cardDetails}) {
             </div>
             {/* card content */}
             <div className="card-content">
-                <span className="material-symbols-outlined">
-                    favorite
-                </span>
-                <p>1 like</p>
+                {
+                    cardDetails.likes.includes(JSON.parse(localStorage.getItem("user"))._id) 
+                        ?
+                        (
+                            // <span className="material-symbols-outlined liked" onClick={() => { unlikePost(cardDetails._id) }}>
+                            <span className="material-symbols-outlined liked" onClick={() => { handleUnlike(cardDetails._id) }}>
+                                favorite
+                            </span>
+
+                        )
+                        :
+                        (
+                            // <span className="material-symbols-outlined" onClick={() => { likePost(cardDetails._id) }}>
+                            <span className="material-symbols-outlined" onClick={() => { handleLike(cardDetails._id) }}>
+                                favorite
+                            </span>
+
+                        )
+
+                }
+
+                {/* <span className={`material-symbols-outlined ${isLiked ? "liked" : ""}`} onClick={() => handleLike(cardDetails._id)}> */}
+                {/* <span className={`material-symbols-outlined ${isLiked ? "liked" : ""}`} onClick={() => {handleLike(cardDetails._id);setLikeValue();}}> */}
+                {/* <span className={`material-symbols-outlined ${isLiked ? "liked" : ""}`} onClick={() => { handleLike(cardDetails._id) }}>
+                 favorite
+             </span> */}
+                <p>{cardDetails.likes.length} Likes</p>
                 <p>{cardDetails.caption}</p>
-            </div>
+            </div >
             {/* add Comment */}
-            <div className='add-comment'>
+            < div className='add-comment' >
                 <span className="material-symbols-outlined">
                     mood
                 </span>
                 <input type="text" placeholder='Add Comment' />
                 <button className='comment-btn'>Post</button>
-            </div>
+            </div >
 
-        </div>
+        </div >
     )
 
 }

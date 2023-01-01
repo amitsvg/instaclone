@@ -1,7 +1,25 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import './Profile.css'
 
 export default function Profile() {
+    // const [pic, setPic] = useState([])
+    const [profileData, setProfileData] = useState([])
+
+
+    useEffect(() => {
+        fetch("http://localhost:5000/myposts", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            }
+        })
+        .then(res => res.json())
+        .then(result => setProfileData(result))
+        
+    })
+
+
     return (
         <div className='profile'>
             {/* Profile frame */}
@@ -12,7 +30,7 @@ export default function Profile() {
                 </div>
                 {/* Profile Data */}
                 <div className="profile-data">
-                    <h1>Canta Coder</h1>
+                    <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
                     <div className="profile-info">
                         <p>40 posts</p>
                         <p>40 followers</p>
@@ -22,17 +40,15 @@ export default function Profile() {
                 </div>
 
             </div>
-            <hr style={{width:"90%", margin:"25px auto", opacity: "0,8" }} />
+            <hr style={{ width: "90%", margin: "25px auto", opacity: "0,8" }} />
 
             {/* Gallery */}
             <div className="gallery">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnZc4nu61fo87fwxBfVNGokRj1TP8t6IrdEQ&usqp=CAU" alt="" />
-                
+                {
+                    profileData.map(profileDatum =>
+                        <img key={profileDatum._id} className='item' src={profileDatum.photo} alt="profileDatum" />
+                    )
+                }
             </div>
 
         </div>

@@ -2,8 +2,9 @@
     box-sizing: border-box;
 }
 .profile{
+    /* margin-top: 10%; */
     max-width: 650px;
-    margin: 20px auto;
+    margin: 10% auto;
 
 }
 

@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import './Home.css'
 import CardForPost from './CardForPost';
 // import ppy from "../img/ppy.jpg"
 
@@ -28,7 +27,58 @@ export default function Home() {
             // .then(result => console.log(result))
             .catch(err => console.log(err))
 
-    })
+    },[])
+
+    const likePost = (id) => {
+        fetch("http://localhost:5000/like", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: id
+            })
+        }).then(res => res.json()).then((result) => {
+            const newData = data.map((cardDetails)=>{
+                if(cardDetails._id == result._id){
+                    return result 
+                }
+                else{
+                    return cardDetails
+                }
+            })
+            setData(newData);
+            // console.log(result)
+        })
+    }
+
+    const unlikePost = (id) => {
+        fetch("http://localhost:5000/unlike", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                postId: id
+            })
+        }).then(res => res.json()).then((result) => {
+            const newData = data.map((cardDetails)=>{
+                if(cardDetails._id == result._id){
+                    return result 
+                }
+                else{
+                    return cardDetails
+                }
+            })
+            setData(newData);
+            // console.log(result)
+        })
+        
+    }
+
+
 
 
     return (
@@ -42,7 +92,7 @@ export default function Home() {
                     //     <li key="{item}">{item}</li>
                     //     )}
                     // return (
-                    <CardForPost cardDetails={posts} key = {posts._id}   />
+                    <CardForPost cardDetails={posts} key = {posts._id} handleLike={likePost} handleUnlike={unlikePost}  />
                 )
 
             
