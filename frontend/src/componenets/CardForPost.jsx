@@ -4,7 +4,23 @@ import { useState } from "react";
 import './CardForPost.css'
 
 export default function CardForPost({ cardDetails, handleLike, handleUnlike }) {
+    const [comment, setComment] = useState([]);
 
+    const makeComment = (comment, id) => {
+        fetch("http://localhost:5000/comment", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                text:comment,
+                postId: id
+            })
+        }).then(res => res.json()).then((result) => {
+            console.log(result)
+        })
+    }
     // const likePost = (id) => {
     //     fetch("http://localhost:5000/like", {
     //         method: "put",
@@ -117,8 +133,8 @@ export default function CardForPost({ cardDetails, handleLike, handleUnlike }) {
                 <span className="material-symbols-outlined">
                     mood
                 </span>
-                <input type="text" placeholder='Add Comment' />
-                <button className='comment-btn'>Post</button>
+                <input type="text" placeholder='Add Comment' value={comment} onChange={(e)=>setComment(e.target.value)} />
+                <button className='comment-btn' onClick={()=>{makeComment(comment, cardDetails._id)}} >Post</button>
             </div >
 
         </div >
