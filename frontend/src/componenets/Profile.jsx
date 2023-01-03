@@ -1,11 +1,25 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import PostDetail from './PostDetail'
 import './Profile.css'
 
 export default function Profile() {
-    // const [pic, setPic] = useState([])
     const [profileData, setProfileData] = useState([])
+    const [show, setShow] = useState(false)
+    const [postData, setPostData] = useState([])
+
+    const toggleDetails = (profileDatum) => {
+        if(!show){
+            setShow(true)
+            setPostData(profileDatum);
+        }
+        else{
+            setShow(false)
+        }
+        // show = setShow(!current);
+        console.log(profileDatum)
+    }
 
 
     useEffect(() => {
@@ -14,9 +28,9 @@ export default function Profile() {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }
         })
-        .then(res => res.json())
-        .then(result => setProfileData(result))
-        
+            .then(res => res.json())
+            .then(result => setProfileData(result))
+
     })
 
 
@@ -46,10 +60,16 @@ export default function Profile() {
             <div className="gallery">
                 {
                     profileData.map(profileDatum =>
-                        <img key={profileDatum._id} className='item' src={profileDatum.photo} alt="profileDatum" />
+                        <img key={profileDatum._id} className='item' src={profileDatum.photo} alt="profileDatum" onClick={() => { toggleDetails(profileDatum) }} />
+                        // <img key={profileDatum._id} className='item' src={profileDatum.photo} alt="profileDatum" onClick={toggleDetails} />
                     )
                 }
             </div>
+            {
+                show && <PostDetail post={postData} toggleDetails={toggleDetails} />
+            }
+
+
 
         </div>
 

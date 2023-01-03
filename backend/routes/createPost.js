@@ -9,7 +9,7 @@ router.get("/allposts", requireLogin, (req, res) => {
     POST.find()
         .populate("postedBy", "_id name userName")
         .then(posts => res.json(posts))
-        .catch(err => consolog(err))
+        .catch(err => console.log(err))
 })
 
 
@@ -35,6 +35,7 @@ router.get("/myposts", requireLogin, (req, res) => {
     // console.log(req.user)
     POST.find({ postedBy: req.user._id })
         .populate("postedBy", "_id name userName")
+        .populate("comments.commentedBy", "_id userName")
         .then(myposts => {
             res.json(myposts)
         })
@@ -57,14 +58,14 @@ router.put("/like", requireLogin, (req, res) => {
 })
 
 
-router.get("/myposts", requireLogin, (req, res) => {
-    // console.log(req.user)
-    POST.find({ postedBy: req.user._id })
-        .populate("postedBy", "_id name userName")
-        .then(myposts => {
-            res.json(myposts)
-        })
-})
+// router.get("/myposts", requireLogin, (req, res) => {
+//     // console.log(req.user)
+//     POST.find({ postedBy: req.user._id })
+//         .populate("postedBy", "_id name userName")
+//         .then(myposts => {
+//             res.json(myposts)
+//         })
+// })
 
 router.put("/unlike", requireLogin, (req, res) => {
     POST.findByIdAndUpdate(req.body.postId, {
@@ -93,14 +94,48 @@ router.put("/comment", requireLogin, (req, res) => {
         {
             new: true
         })
-        .populate("comments.commentedBy","_id userName")
+        .populate("comments.commentedBy", "_id userName")
         .exec((err, result) => {
             if (err) {
                 return res.status(422).json({ error: err })
             } else {
                 res.json(result)
             }
-        })
+        }) 
 })
+
+
+router.post("/allcomments", requireLogin, (req, res) => {
+    // console.log(req.body)
+    POST.find({_id: req.body.postId})
+    .populate("comments.commentedBy", "_id userName")
+        .then(post => res.json(post))
+        .catch(err => console.log(err))
+})
+
+
+// Api to delete post
+router.delete("/deletePost/:postId", requireLogin, (req,res) => {
+    // console.log(req.params.postId)
+    POST.findOne({_id: req.params.postId})
+    .populate("postedBy", "_id")
+    .exec((err,post)=>{
+        if(err || !post){
+            return req.status(422).json({error:err})
+        }
+        // console.log(post.postedBy._id.toString() , req.user._id.toString());
+        if(post.postedBy._id.toString() , req.user._id.toString()){
+            post.remove()
+            .then(result => {
+                return res.json({message:"Successfully Deleted"})
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+    })
+
+
+})
+
 
 module.exports = router
