@@ -22,13 +22,22 @@ app.use(require("./routes/createPost"))
 app.use(require("./routes/user"))
 
 // mongoose.connect(mongoUrl, {useNewUrlParser: true});
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
-mongoose.connection.on("connected", () => {
-    console.log("successfully connected to mongo")
-})
-mongoose.connection.on("error", () => {
-    console.log("not connected to mongodb");
-})
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO_URI);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  }
+// mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+// mongoose.connection.on("connected", () => {
+//     console.log("successfully connected to mongo")
+// })
+// mongoose.connection.on("error", () => {
+//     console.log("not connected to mongodb");
+// })
 
 if(process.env.NODE_ENV ==="production"){
     app.use(express.static(path.join("frontend/build")));
@@ -37,6 +46,13 @@ if(process.env.NODE_ENV ==="production"){
     });
 }
 
-app.listen(PORT, () =>{
-    console.log(`server si running on ${PORT}`);
+connectDB().then(() => {
+    
+    app.listen(PORT, () =>{
+        console.log(`server si running on ${PORT}`);
+    })
 })
+
+// app.listen(PORT, () =>{
+//     console.log(`server si running on ${PORT}`);
+// })
