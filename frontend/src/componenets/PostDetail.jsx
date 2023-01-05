@@ -16,7 +16,7 @@ export default function PostDetail({ post, toggleDetails }) {
     })
 
     const makeComment = (comment, id) => {
-        fetch("/comment", {
+        fetch("http://localhost:5000/comment", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export default function PostDetail({ post, toggleDetails }) {
 
 
     const removePost = (postId) =>{
-        fetch(`/deletePost/${postId}`,{
+        fetch(`http://localhost:5000/deletePost/${postId}`,{
             method:"delete",
             headers:{
                     "Authorization": "Bearer " + localStorage.getItem("jwt")

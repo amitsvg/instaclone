@@ -6,12 +6,11 @@ import { Link } from 'react-router-dom'
 
 import { LoginContext } from '../context/LoginContext';
 import { useContext } from 'react'
-import { useEffect } from 'react';
 
 
 export default function Navbar({ login }) {
     const { setModalOpen } = useContext(LoginContext)
-    const loginVar = false;
+    // const loginVar = false;
     
     const loginStatus = () => {
         const token = localStorage.getItem("jwt");
@@ -38,8 +37,8 @@ export default function Navbar({ login }) {
                 </Link>
             </div>
             <ul className='nav-menu'>
-                {/* {loginStatus() && <Link to="/createPost"> */}
-                    {loginVar && <Link to="/createPost">
+                {loginStatus() && <Link to="/createPost">
+                    {/* {loginVar && <Link to="/createPost"> */}
                     <li>
                         <span className="material-symbols-sharp">
                             add_box

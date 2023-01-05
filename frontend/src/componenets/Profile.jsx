@@ -24,7 +24,7 @@ export default function Profile() {
 
 
     useEffect(() => {
-        fetch("/myposts", {
+        fetch("http://localhost:5000/myposts", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("jwt")
             }

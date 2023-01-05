@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import CardForPost from './CardForPost';
-import ppy from "../img/ppy.jpg"
 
 
 
@@ -28,7 +27,7 @@ export default function Home() {
         }
         else {
             // Fetching all posts
-            fetch("/allposts", {
+            fetch("http://localhost:5000/allposts", {
                 headers: {
                     "Authorization": "Bearer " + localStorage.getItem("jwt")
                 }
@@ -40,10 +39,10 @@ export default function Home() {
                 })
                 .catch(err => console.log(err))
         }
-    }, [])
+    }, [navigate])
 
     const likePost = (id) => {
-        fetch("/like", {
+        fetch("http://localhost:5000/like", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +66,7 @@ export default function Home() {
     }
 
     const unlikePost = (id) => {
-        fetch("/unlike", {
+        fetch("http://localhost:5000/unlike", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",

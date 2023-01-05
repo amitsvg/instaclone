@@ -21,7 +21,7 @@ export default function Createpost() {
 
         //saving post rto mongo
         if (imageUrl) {
-            fetch("/createPost", {
+            fetch("http://localhost:5000/createPost", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",

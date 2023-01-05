@@ -13,13 +13,13 @@ export default function CardForPost({ cardDetails, handleLike, handleUnlike }) {
     const [allComments, setAllComments] = useState([]);
 
     // Toast Functions
-    const notifyA = (msg) => toast.error(msg);
+    // const notifyA = (msg) => toast.error(msg);
     const notifyB = (msg) => toast.success(msg);
 
 
     const toggleComments = () => {
         if (!show) {
-            fetch("/allcomments", {
+            fetch("http://localhost:5000/allcomments", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export default function CardForPost({ cardDetails, handleLike, handleUnlike }) {
     }
 
     const makeComment = (comment, id) => {
-        fetch("/comment", {
+        fetch("http://localhost:5000/comment", {
             method: "put",
             headers: {
                 "Content-Type": "application/json",

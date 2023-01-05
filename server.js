@@ -11,7 +11,6 @@ const app = express();
 const PORT = 5000;
 const cors = require('cors');
 const mongoose = require('mongoose');
-// const { mongoUrl } = require('./keys');
 
 app.use(cors());
 require('./models/model')
@@ -31,24 +30,6 @@ const connectDB = async () => {
         process.exit(1);
     }
 }
-// mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
-// mongoose.connection.on("connected", () => {
-//     console.log("successfully connected to mongo")
-// })
-// mongoose.connection.on("error", () => {
-//     console.log("not connected to mongodb");
-// })
-
-// if(process.env.NODE_ENV ==="production"){
-//     app.use(express.static(path.join("frontend/build")));
-//     app.get("*", (req, res) => {
-//       res.sendFile(path.resolve(__dirname, "./frontend/build/index.html"),
-//       function (err){
-//           res.status(500).send(err)
-//         }
-//         );
-//     });
-//   }
 
 connectDB().then(() => {
 
