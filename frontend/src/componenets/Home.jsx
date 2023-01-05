@@ -10,7 +10,7 @@ import ppy from "../img/ppy.jpg"
 export default function Home() {
     const navigate = useNavigate();
     const [data, setData] = useState([])
-    const [comment, setComment] = useState([])
+    // const [comment, setComment] = useState([])
     // const [show, setShow] = useState(false);
 
     // const toggleComments = () =>{

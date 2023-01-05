@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom'
 
 import { LoginContext } from '../context/LoginContext';
 import { useContext } from 'react'
+import { useEffect } from 'react';
 
 
 export default function Navbar({ login }) {
     const { setModalOpen } = useContext(LoginContext)
-    // const loginVar = false;
+    const loginVar = false;
+    
     const loginStatus = () => {
         const token = localStorage.getItem("jwt");
         if (token || login) {
@@ -18,9 +20,15 @@ export default function Navbar({ login }) {
             return true;
         }
         else {
+            // loginVar = false;
             return false;
         }
     }
+    // useEffect(()=>{
+    //     loginStatus();
+    // },[login])
+
+
     return (
         <div className='navbar'>
             {/* <img src={logo} alt="logo" /> */}
@@ -30,8 +38,8 @@ export default function Navbar({ login }) {
                 </Link>
             </div>
             <ul className='nav-menu'>
-                {loginStatus() && <Link to="/createPost">
-                    {/* {loginVar && <Link to="/createPost"> */}
+                {/* {loginStatus() && <Link to="/createPost"> */}
+                    {loginVar && <Link to="/createPost">
                     <li>
                         <span className="material-symbols-sharp">
                             add_box
@@ -46,7 +54,7 @@ export default function Navbar({ login }) {
                 {loginStatus() && <Link to="/profile"><li>Profile</li></Link>}
                 {/* {loginVar && <Link to="/profile"><li>Profile</li></Link>} */}
                 {loginStatus() &&
-                    // <Link to={""}>
+                // {loginVar &&
                         <button
                             className='primaryBtn'
                             onClick={() => setModalOpen(true)}

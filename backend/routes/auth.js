@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const USER = mongoose.model("USER")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { Jwt_secret } = require("../keys");
+// const { Jwt_secret } = require("../keys");
+const Jwt_secret  = process.env.Jwt_secret
 const requireLogin = require('../middlewares/requireLogin');
 
 router.get('/', (req, res) => {

@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './componenets/Navbar';
 import Home from "./componenets/Home";
@@ -35,7 +35,7 @@ function App() {
           </Routes>
 
           <ToastContainer theme='dark' />
-          {modalOpen && <Modal setModalOpen={setModalOpen}></Modal>}
+          {modalOpen && <Modal setModalOpen={setModalOpen} setUserLogin={setUserLogin}></Modal>}
         </LoginContext.Provider>
       </div>
     </BrowserRouter>

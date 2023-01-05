@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './Modal.css'
 
 
-export default function Modal({setModalOpen} ) {
+export default function Modal({setModalOpen,setUserLogin} ) {
     const navigate = useNavigate();
     return (
         <div className="darkBg" onClick={()=>setModalOpen(false)} >
@@ -28,6 +28,7 @@ export default function Modal({setModalOpen} ) {
                             setModalOpen(false);
                             localStorage.clear();
                             navigate("/signin")
+                            setUserLogin(false);
 
                         }}
                         
