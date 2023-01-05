@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logo from "../img/logoinsta2.png"
 import "./SignUp.css"
 import { Link, useNavigate } from 'react-router-dom'

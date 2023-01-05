@@ -54,7 +54,6 @@ export default function Navbar({ login }) {
                 {loginStatus() && <Link to="/profile"><li>Profile</li></Link>}
                 {/* {loginVar && <Link to="/profile"><li>Profile</li></Link>} */}
                 {loginStatus() &&
-                // {loginVar &&
                         <button
                             className='primaryBtn'
                             onClick={() => setModalOpen(true)}
