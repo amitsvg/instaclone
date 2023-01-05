@@ -40,7 +40,7 @@ const connectDB = async () => {
 // })
 
 if(process.env.NODE_ENV ==="production"){
-    app.use('/static',express.static(path.join("frontend/build")));
+    app.use(express.static(path.join("frontend/build")));
     app.get("*", (req, res) => {
       res.sendFile(path.resolve(__dirname, "./frontend/build/index.html"),
       function (err){
@@ -56,7 +56,3 @@ connectDB().then(() => {
         console.log(`server si running on ${PORT}`);
     })
 })
-
-// app.listen(PORT, () =>{
-//     console.log(`server si running on ${PORT}`);
-// })
