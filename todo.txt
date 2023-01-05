@@ -7,3 +7,7 @@ first upload the image , by upload button(create a new btn) , then make the publ
 how to use likepost function only in the child class and not on home.jsx , configure the rendering of only one element which is liked and not whole DunHQxUX46ek6OPk7IZ8Mnp6eHBFwQR1BuIBaeeYLMHpNem5AH8JN1I8J2OXZitZLjZgN16eHdLOfLGxfLQS0EtALQZGWgFoJaCWgBFoxaATBLQaSao0i1R4y0l1QtUg1Qg0DSho4aRao
 
 make username also unique just like email 
+
+add username also in the profile page
+
+view postDetail in profile/:userid also , just remove the delete post option
