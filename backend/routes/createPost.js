@@ -19,7 +19,7 @@ router.post("/createPost", requireLogin, (req, res) => {
     if (!caption || !imageUrl) {
         return res.status(422).json({ error: "Please add both image and caption" })
     }
-    console.log(req.user);
+    // console.log(req.user);
     const post = new POST({
         caption,
         photo: imageUrl,
@@ -47,7 +47,9 @@ router.put("/like", requireLogin, (req, res) => {
     },
         {
             new: true
-        }).exec((err, result) => {
+        })
+        .populate("postedBy", "_id name userName")
+        .exec((err, result) => {
             if (err) {
                 return res.status(422).json({ error: err })
             } else {
@@ -73,7 +75,9 @@ router.put("/unlike", requireLogin, (req, res) => {
     },
         {
             new: true
-        }).exec((err, result) => {
+        })
+        .populate("postedBy", "_id name userName")
+        .exec((err, result) => {
             if (err) {
                 return res.status(422).json({ error: err })
             } else {
@@ -136,6 +140,15 @@ router.delete("/deletePost/:postId", requireLogin, (req,res) => {
 
 
 })
+
+// to show following post
+// router.get("/myfollowingpost", requireLogin, (req, res) => {
+//     POST.find({postedBy: {$in: req.user.following}})
+//     .populate("postedBy", "_id name userName")
+//     .populate("comments.commentedBy", "_id name")
+//     .then(posts=>res.json(posts))
+//     .catch(err => {console.log(err)})
+// })
 
 
 module.exports = router

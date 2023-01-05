@@ -58,7 +58,7 @@ router.post("/signin", (req, res) => {
                     // res.json(token)
                     // console.log(token)
                     res.json({token, user: {_id, name, email, userName}})
-                    console.log({token, user: {_id, name, email, userName}})
+                    // console.log({token, user: {_id, name, email, userName}})
                 } else {
                     return res.status(422).json({ error: "Invalid Password" })
                 }

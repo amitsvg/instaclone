@@ -10,6 +10,44 @@ export default function UserProfile() {
     console.log(userid)
     const [userDetails, setUserDetails] = useState({})
     const [posts, setPosts] = useState([])
+    const [isFollow, setIsFollow] = useState(false)
+
+    // to follow user
+    const followUser = (userId) => {
+        fetch("http://localhost:5000/follow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userId
+            })
+        })
+            .then(res => res.json())
+            .then((result) => {
+                console.log("foollow ho gaya", result)
+                setIsFollow(true)
+            })
+    }
+    // to unfollow user
+    const unfollowUser = (userId) => {
+        fetch("http://localhost:5000/unfollow", {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                followId: userId
+            })
+        })
+            .then(res => res.json())
+            .then((result) => {
+                console.log("unfollow kara diya",result)
+                setIsFollow(false)
+            })
+    }
 
     // const toggleDetails = (profileDatum) => {
     //     if(!show){
@@ -31,13 +69,16 @@ export default function UserProfile() {
             // }
         })
             .then(res => res.json())
-            .then((result) =>{
+            .then((result) => {
                 console.log(result)
                 setUserDetails(result.user)
-                setPosts(result.post)                
+                setPosts(result.post)
+                if(result.user.followers.includes(JSON.parse(localStorage.getItem("user"))._id)){
+                    setIsFollow(true)
+                }
             })
 
-    }, [])
+    }, [isFollow])
 
 
     return (
@@ -50,11 +91,25 @@ export default function UserProfile() {
                 </div>
                 {/* Profile Data */}
                 <div className="profile-data">
-                    <h1>{userDetails.name}</h1>
+                    <div>
+                        <h1>{userDetails.name}</h1>
+                        <button className='followBtn'
+                            onClick={() => {
+                                if(isFollow){
+                                    unfollowUser(userDetails._id)
+                                }
+                                else{
+                                    followUser(userDetails._id)
+                                }
+                            }}
+                        >
+                            {isFollow ? "UnFollow" : "Follow"}
+                            </button>
+                    </div>
                     <div className="profile-info">
                         <p>{posts.length} posts</p>
-                        <p>40 followers</p>
-                        <p>40 following</p>
+                        <p>{userDetails.followers ? userDetails.followers.length : "0"} followers</p>
+                        <p>{userDetails.followers ? userDetails.following.length : "0"} following</p>
                     </div>
 
                 </div>
