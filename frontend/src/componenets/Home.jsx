@@ -26,19 +26,20 @@ export default function Home() {
         if (!token) {
             navigate("/signin");
         }
-        // Fetching all posts
-        fetch("/allposts", {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("jwt")
-            }
-        })
-            .then(res => res.json())
-            .then((result) => {
-                setData(result)
-                console.log(result)
+        else {
+            // Fetching all posts
+            fetch("/allposts", {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("jwt")
+                }
             })
-            .catch(err => console.log(err))
-
+                .then(res => res.json())
+                .then((result) => {
+                    setData(result)
+                    console.log(result)
+                })
+                .catch(err => console.log(err))
+        }
     }, [])
 
     const likePost = (id) => {
@@ -104,13 +105,13 @@ export default function Home() {
                     //     <li key="{item}">{item}</li>
                     //     )}
                     // return (
-                    <CardForPost cardDetails={posts} key={posts._id} handleLike={likePost} handleUnlike={unlikePost}  />
+                    <CardForPost cardDetails={posts} key={posts._id} handleLike={likePost} handleUnlike={unlikePost} />
                 )
 
 
             }
 
-            
+
 
 
             {/* {
