@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import PostDetail from './PostDetail'
+// import PostDetail from './PostDetail'
 import './Profile.css'
 import { useParams } from 'react-router-dom'
 

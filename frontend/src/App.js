@@ -12,6 +12,7 @@ import Createpost from './componenets/Createpost';
 import { LoginContext } from './context/LoginContext';
 import Modal from './componenets/Modal';
 import UserProfile from './componenets/UserProfile';
+import MyFollowingPost from './componenets/MyFollowingPost';
 
 function App() {
   const [userLogin, setUserLogin] = useState(false);
@@ -29,6 +30,7 @@ function App() {
             <Route exact path="/profile" element={<Profile />} />
             <Route path="/createPost" element={<Createpost />} />
             <Route path="/profile/:userid" element={<UserProfile />} />
+            <Route path="/myfollowingpost" element={<MyFollowingPost />} />
 
           </Routes>
 

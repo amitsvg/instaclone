@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import PostDetail from './PostDetail'
 import './Profile.css'
 
@@ -10,11 +11,11 @@ export default function Profile() {
     const [postData, setPostData] = useState([])
 
     const toggleDetails = (profileDatum) => {
-        if(!show){
+        if (!show) {
             setShow(true)
             setPostData(profileDatum);
         }
-        else{
+        else {
             setShow(false)
         }
         // show = setShow(!current);
@@ -29,10 +30,15 @@ export default function Profile() {
             }
         })
             .then(res => res.json())
-            .then(result => setProfileData(result))
-
-    })
-
+            .then((result) => {
+                setProfileData(result)
+                console.log(result)
+            })
+            
+        },[])
+        
+        // setFol(profileData[0].postedBy.followers)
+        // console.log(fol);
 
     return (
         <div className='profile'>
@@ -44,11 +50,17 @@ export default function Profile() {
                 </div>
                 {/* Profile Data */}
                 <div className="profile-data">
-                    <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
+                    <div>
+                        <h1>{JSON.parse(localStorage.getItem("user")).name}</h1>
+                        <Link to="/myfollowingpost">
+                            <button>My Followings</button>
+                        </Link>
+
+                    </div>
                     <div className="profile-info">
-                        <p>40 posts</p>
-                        <p>40 followers</p>
-                        <p>40 following</p>
+                        <p>{profileData.length} posts</p>
+                        <p>{profileData[0] ? profileData[0].postedBy.followers.length : "0"} following</p>
+                        <p>{profileData[0] ? profileData[0].postedBy.following.length : "0"} following</p>
                     </div>
 
                 </div>

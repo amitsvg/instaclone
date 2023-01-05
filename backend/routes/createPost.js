@@ -34,7 +34,7 @@ router.post("/createPost", requireLogin, (req, res) => {
 router.get("/myposts", requireLogin, (req, res) => {
     // console.log(req.user)
     POST.find({ postedBy: req.user._id })
-        .populate("postedBy", "_id name userName")
+        .populate("postedBy", "_id name userName followers following")
         .populate("comments.commentedBy", "_id userName")
         .then(myposts => {
             res.json(myposts)
@@ -142,13 +142,13 @@ router.delete("/deletePost/:postId", requireLogin, (req,res) => {
 })
 
 // to show following post
-// router.get("/myfollowingpost", requireLogin, (req, res) => {
-//     POST.find({postedBy: {$in: req.user.following}})
-//     .populate("postedBy", "_id name userName")
-//     .populate("comments.commentedBy", "_id name")
-//     .then(posts=>res.json(posts))
-//     .catch(err => {console.log(err)})
-// })
+router.get("/myfollowingpost", requireLogin, (req, res) => {
+    POST.find({postedBy: {$in: req.user.following}})
+    .populate("postedBy", "_id name userName")
+    .populate("comments.commentedBy", "_id name")
+    .then(posts=>res.json(posts))
+    .catch(err => {console.log(err)})
+})
 
 
 module.exports = router
