@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken')
 const Jwt_secret  = process.env.Jwt_secret
 const requireLogin = require('../middlewares/requireLogin');
 
-router.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "./frontend/build/index.html"))
-})
+// router.get('/', (req, res) => {
+    // res.sendFile(path.resolve(__dirname, "./frontend/build/index.html"))
+// })
 
 router.post("/signup", (req, res) => {
     const { name, userName, email, password } = req.body;
