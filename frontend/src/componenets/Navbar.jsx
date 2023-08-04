@@ -33,8 +33,7 @@ export default function Navbar({ login }) {
             {/* <img src={logo} alt="logo" /> */}
             <div className="nav-img">
                 <Link to="/" className='linkHome' >
-{/*                     <img src={logo} alt="logo" /> */}
-                    <h1 style={{'margin-left': '16vw'}}>INstaClone</h1>
+                    <img src={logo} alt="logo" />
                 </Link>
             </div>
             <ul className='nav-menu'>
