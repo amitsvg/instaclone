@@ -64,7 +64,8 @@ export default function SignIn() {
         <div className='signIn'>
             <div>
                 <div className="loginForm">
-                    <img className='signInLogo' src={logo} alt="" />
+                    {/* <img className='signInLogo' src={logo} alt="" /> */}
+                    <h2>INstaCLone</h2>
                     <div>
                         <input type="email" name="email" id="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
                     </div>

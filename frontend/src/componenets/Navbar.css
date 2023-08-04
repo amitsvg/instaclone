@@ -31,11 +31,14 @@
     justify-content: space-around;
     box-shadow: 1px 5px 5px #e0dcdc;
 
+    padding: 0 200px;
+
 }
 
 ul {
     display: flex;
-    margin: 0.6rem auto;
+    /* margin: 0.6rem auto; */
+    margin: 0.1rem 0rem;
     align-items: center;
 }
 

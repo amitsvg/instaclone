@@ -67,7 +67,8 @@ export default function SignUp() {
         <div className='signUp'>
             <div className="form-container">
                 <div className="form">
-                    <img className='signUpLogo' src={logo} alt="logo" />
+                    {/* <img className='signUpLogo' src={logo} alt="logo" /> */}
+                    <h2>INstaCLone</h2>
                     <p className='signUpPara'>
                         Sign up to see photos nand videos <br /> from your friends.
                     </p>
